@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
         Maker *obj = [[Maker alloc]init];
         obj.m = 123;
         obj.num = @(999);
-//        [obj release];
+        [obj release];
         
         test = ^(){
             a++;
@@ -43,4 +43,23 @@ int main(int argc, const char * argv[]) {
         
     }
     return 0;
+}
+
+//clang main.m -S -emit-llvm -o test.bc -O3
+//clang -rewrite-objc main.m
+
+void justTest()
+{
+    Maker *obj = [[Maker alloc]init];
+    obj.m = 123;
+    obj.num = @(999);
+    [obj release];
+    
+    void (^bbbbb)(void) = ^(){
+        obj.m = 100;
+        obj.num = @(888);
+        NSLog(@"--in block :obj = %lu,num=%@",(unsigned long)[obj retainCount],[obj num]);
+    };
+    
+    bbbbb();
 }
