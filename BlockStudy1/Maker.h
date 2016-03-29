@@ -13,4 +13,6 @@
 @property (nonatomic, assign) int m;
 @property (nonatomic, retain) NSNumber *num;
 
+@property (nonatomic, copy) void (^SuccBlock)(void);
+
 @end

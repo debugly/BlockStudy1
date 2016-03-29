@@ -12,8 +12,11 @@
 
 - (void)dealloc
 {
-    NSLog(@"%@:%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
+    NSLog(@"%@:%@-num:%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.num);
+    self.num = nil;
+    self.SuccBlock = nil;
     [super dealloc];
+    
 }
 
 @end
